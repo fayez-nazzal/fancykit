@@ -1,0 +1,30 @@
+{
+  "name": "@fancykit/core",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "core/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:swc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/core",
+        "main": "core/src/index.ts",
+        "tsConfig": "core/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "publish": {
+      "command": "node tools/scripts/publish.mjs @fancykit/core {args.ver} {args.tag}",
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["core/**/*.ts", "core/package.json"]
+      }
+    }
+  },
+  "tags": []
+}
